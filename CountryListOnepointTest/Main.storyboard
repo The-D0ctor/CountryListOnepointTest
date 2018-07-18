@@ -33,12 +33,12 @@
         <!--Countries-->
         <scene sceneID="iur-Qf-Xx3">
             <objects>
-                <viewController id="dYG-9J-xst" customClass="CountriesListViewController" customModule="CountryListOnepointTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="dYG-9J-xst" customClass="CountriesListViewController" customModule="CountryListOnepointTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OBv-Mf-8Ge">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3pg-lY-dVC">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3pg-lY-dVC">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -127,19 +127,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="g3P-fi-Qew"/>
                     <connections>
-                        <outlet property="searchDisplayController" destination="7rf-PQ-oQy" id="sa1-Zo-Seu"/>
                         <outlet property="view" destination="X60-ZB-ovX" id="piE-iH-Mxd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c6I-4j-qhQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="7rf-PQ-oQy">
-                    <connections>
-                        <outlet property="delegate" destination="gYR-Qz-dQ1" id="IDd-uE-BBX"/>
-                        <outlet property="searchContentsController" destination="gYR-Qz-dQ1" id="kEB-Ps-jVL"/>
-                        <outlet property="searchResultsDataSource" destination="gYR-Qz-dQ1" id="duk-rX-sim"/>
-                        <outlet property="searchResultsDelegate" destination="gYR-Qz-dQ1" id="iY0-ht-PA1"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1015.2" y="-354.87256371814095"/>
         </scene>

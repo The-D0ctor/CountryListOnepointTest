@@ -12,14 +12,30 @@ class CountriesTableViewManager: NSObject, UITableViewDataSource, UITableViewDel
     
     var listCountries: Array<Country> = Array()
     
+    var filteredCountries: Array<Country>?
+    
+    var tableView: UITableView?
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listCountries.count
+        if filteredCountries == nil {
+            return listCountries.count
+        }
+        else {
+            return filteredCountries!.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "countryCell", for: indexPath) as! CountriesTableViewCell
-        cell.CountryNameLabel.text = listCountries[indexPath.row].name
-        cell.CountryCapitalLabel.text = listCountries[indexPath.row].capital
+        var country: Country?
+        if filteredCountries == nil {
+            country = listCountries[indexPath.row]
+        }
+        else {
+            country = filteredCountries![indexPath.row]
+        }
+        cell.CountryNameLabel.text = country!.name
+        cell.CountryCapitalLabel.text = country!.capital
         return cell
     }
     
@@ -28,5 +44,16 @@ class CountriesTableViewManager: NSObject, UITableViewDataSource, UITableViewDel
     }
     
     func updateSearchResults(for searchController: UISearchController) {
+        let searchText = searchController.searchBar.text
+        if searchText == nil || searchText!.isEmpty {
+            filteredCountries = nil
+        }
+        else {
+            filteredCountries = listCountries.filter({(country: Country) in
+                return (country.name.lowercased().starts(with: searchText!.lowercased()) ||
+                    country.capital.lowercased().starts(with: searchText!.lowercased()))
+            })
+        }
+        self.tableView?.reloadData()
     }
 }

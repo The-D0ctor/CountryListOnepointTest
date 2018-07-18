@@ -21,14 +21,15 @@ class CountriesListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.searchController.searchResultsUpdater = self.tableViewManager
+        self.searchController.hidesNavigationBarDuringPresentation = false
+        self.searchController.dimsBackgroundDuringPresentation = false
+        self.CountriesTableView.tableHeaderView = self.searchController.searchBar
+        self.tableViewManager.tableView = self.CountriesTableView
+        self.CountriesTableView.dataSource = self.tableViewManager
+        self.CountriesTableView.delegate = self.tableViewManager
         ApiManager.getCountriesFromApi() { (_ countries: Array<Country>) in
-            self.searchController.searchResultsUpdater = self.tableViewManager
-            self.searchController.hidesNavigationBarDuringPresentation = false
-            self.searchController.dimsBackgroundDuringPresentation = false
-            self.CountriesTableView.tableHeaderView = self.searchController.searchBar
             self.tableViewManager.listCountries = countries
-            self.CountriesTableView.dataSource = self.tableViewManager
-            self.CountriesTableView.delegate = self.tableViewManager
             self.CountriesTableView.reloadData()
         }
     }
@@ -43,8 +44,8 @@ class CountriesListViewController: UIViewController {
             let cell = sender as? CountriesTableViewCell
             if cell != nil {
                 segue.destination.navigationItem.title = cell?.CountryNameLabel.text
+                self.searchController.isActive = false
             }
-            self.searchController.isActive = false
         }
     }
 }
