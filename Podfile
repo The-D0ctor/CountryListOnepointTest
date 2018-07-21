@@ -7,6 +7,7 @@ target 'CountryListOnepointTest' do
 
   # Pods for CountryListOnepointTest
   pod 'Alamofire'
+  pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '2.x'
   
   target 'CountryListOnepointTestTests' do
     inherit! :search_paths

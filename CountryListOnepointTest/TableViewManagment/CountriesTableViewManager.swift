@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVGKit
 
 class CountriesTableViewManager: NSObject, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
     
@@ -15,6 +16,8 @@ class CountriesTableViewManager: NSObject, UITableViewDataSource, UITableViewDel
     var filteredCountries: Array<Country>?
     
     var tableView: UITableView?
+    
+    static var flagDictionary: Dictionary<String, UIImage?> = Dictionary()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if filteredCountries == nil {
@@ -36,6 +39,18 @@ class CountriesTableViewManager: NSObject, UITableViewDataSource, UITableViewDel
         }
         cell.CountryNameLabel.text = country!.name
         cell.CountryCapitalLabel.text = country!.capital
+        print(country!.name)
+        if !CountriesTableViewManager.flagDictionary.contains(where: {(key, _) in
+            return (key == country!.name)}) {
+            if country!.name != "Saint Helena, Ascension and Tristan da Cunha" {
+                let flagImage = SVGKImage(contentsOf: URL(string: country!.flag))
+                CountriesTableViewManager.flagDictionary[country!.name] = flagImage?.uiImage
+            }
+            else {
+                CountriesTableViewManager.flagDictionary[country!.name] = UIImage()
+            }
+        }
+        cell.FlagImageView.image = CountriesTableViewManager.flagDictionary[country!.name]!
         return cell
     }
     

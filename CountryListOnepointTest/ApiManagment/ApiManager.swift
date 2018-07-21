@@ -21,4 +21,15 @@ class ApiManager {
             }
         }
     }
+    
+    static func getFlag(flagUrl: String, completionHandler:@escaping (_ flagData: Data) -> Void) {
+        Alamofire.request(flagUrl).responseData { (response) in
+            switch response.result {
+            case .success(let flagData):
+                completionHandler(flagData)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }

@@ -108,6 +108,14 @@
 			path = TableViewManagment;
 			sourceTree = "<group>";
 		};
+		2CCC9D8D21034C8200126B85 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				2CE3BEF720F3F9E40026B4AC /* CountriesListViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		2CE3BEE920F3F9E40026B4AC = {
 			isa = PBXGroup;
 			children = (
@@ -133,10 +141,10 @@
 		2CE3BEF420F3F9E40026B4AC /* CountryListOnepointTest */ = {
 			isa = PBXGroup;
 			children = (
+				2CCC9D8D21034C8200126B85 /* ViewControllers */,
 				2C81C01E20F7C98600FDCDD8 /* TableViewManagment */,
 				2CE3BF2320F402320026B4AC /* ApiManagment */,
 				2CE3BEF520F3F9E40026B4AC /* AppDelegate.swift */,
-				2CE3BEF720F3F9E40026B4AC /* CountriesListViewController.swift */,
 				2C81C01F20F7CC0500FDCDD8 /* Main.storyboard */,
 				2CE3BEFC20F3F9E50026B4AC /* Assets.xcassets */,
 				2C81C02120F7CC2600FDCDD8 /* LaunchScreen.storyboard */,
@@ -370,10 +378,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-CountryListOnepointTest/Pods-CountryListOnepointTest-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/SVGKit/SVGKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVGKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -498,7 +510,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -552,7 +564,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
