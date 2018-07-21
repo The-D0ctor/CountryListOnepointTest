@@ -15,6 +15,7 @@ class Country: Decodable, CustomStringConvertible {
     var population: Int = 0
     var borders: [String] = []
     var currencies: [Currency] = []
+    var alpha3Code: String = ""
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -23,10 +24,11 @@ class Country: Decodable, CustomStringConvertible {
         case population
         case borders
         case currencies
+        case alpha3Code
     }
     
     var description: String {
-        return "Country: { name: \(name), capital: \(capital), flag: \(flag), population: \(population), borders: \(borders), currencies: \(currencies) }"
+        return "Country: { name: \(name), capital: \(capital), flag: \(flag), population: \(population), borders: \(borders), currencies: \(currencies) , alpha3Code: \(alpha3Code)}"
     }
     
     class Currency: Decodable, CustomStringConvertible {

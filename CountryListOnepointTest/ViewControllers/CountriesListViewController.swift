@@ -10,7 +10,9 @@ import UIKit
 import Alamofire
 
 class CountriesListViewController: UIViewController {
-    var listCountries: Array<Country>?
+    var listCountries: [Country]?
+    
+    @IBOutlet weak var SearchBarView: UIView!
     
     @IBOutlet weak var CountriesTableView: UITableView!
     
@@ -26,11 +28,11 @@ class CountriesListViewController: UIViewController {
         self.searchController.searchResultsUpdater = self.tableViewManager
         self.searchController.hidesNavigationBarDuringPresentation = false
         self.searchController.dimsBackgroundDuringPresentation = false
-        self.CountriesTableView.tableHeaderView = self.searchController.searchBar
+        self.SearchBarView.addSubview(self.searchController.searchBar)
         self.tableViewManager.tableView = self.CountriesTableView
         self.CountriesTableView.dataSource = self.tableViewManager
         self.CountriesTableView.delegate = self.tableViewManager
-        ApiManager.getCountriesFromApi() { (_ countries: Array<Country>) in
+        ApiManager.getCountriesFromApi() { (_ countries: [Country]) in
             let sortedCountries = countries.sorted(by: {(country1, country2) in
                     return (country1.name < country2.name)
                 })
@@ -48,11 +50,15 @@ class CountriesListViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToCountry" {
             
-            if let cell = sender as? CountriesTableViewCell {
+            if let cell = sender as? CountriesTableViewCell,
+                let destination = segue.destination as? CountryViewController {
                 let country = self.listCountries?.first(where: {(country) in
                     return (country.name == cell.CountryNameLabel.text)
                 })
-                segue.destination.navigationItem.title = cell.CountryNameLabel.text
+                destination.navigationItem.title = cell.CountryNameLabel.text
+                destination.listCountries = self.listCountries
+                destination.currentCountry = country
+                destination.flagImage = cell.FlagImageView.image
                 self.searchController.isActive = false
             }
         }
