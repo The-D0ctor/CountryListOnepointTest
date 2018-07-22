@@ -28,18 +28,20 @@ class Country: Decodable, CustomStringConvertible {
     }
     
     var description: String {
-        return "Country: { name: \(name), capital: \(capital), flag: \(flag), population: \(population), borders: \(borders), currencies: \(currencies) , alpha3Code: \(alpha3Code)}"
+        return "Country: { name: \(name), capital: \(capital), flag: \(flag), population: \(population), borders: \(borders), currencies: \(currencies) , alpha3Code: \(alpha3Code) }"
     }
     
     class Currency: Decodable, CustomStringConvertible {
         var name: String? = ""
+        var symbol: String? = ""
         
         enum CodingKeys: String, CodingKey {
             case name
+            case symbol
         }
         
         var description: String {
-            return String(describing: name)
+            return "Currency: { name: \(String(describing: name)), symbol: \(String(describing: symbol))}"
         }
     }
 }

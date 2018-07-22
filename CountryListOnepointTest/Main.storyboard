@@ -39,11 +39,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xu6-Iz-H85">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="nyc-CO-3Q3"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3pg-lY-dVC">
                                 <rect key="frame" x="0.0" y="120" width="375" height="547"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="countryCell" rowHeight="100" id="5Bk-sp-AIQ" customClass="CountriesTableViewCell" customModule="CountryListOnepointTest" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="countryCell" rowHeight="100" id="5Bk-sp-AIQ" customClass="CountriesListTableViewCell" customModule="CountryListOnepointTest" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5Bk-sp-AIQ" id="WuP-Gc-Uds">
@@ -91,13 +98,6 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xu6-Iz-H85">
-                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="nyc-CO-3Q3"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -112,7 +112,7 @@
                         <viewLayoutGuide key="safeArea" id="MpX-sD-cTu"/>
                     </view>
                     <navigationItem key="navigationItem" title="Countries" id="bBL-TZ-NbO">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="5xH-Z4-d0T">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="refresh" id="5xH-Z4-d0T">
                             <connections>
                                 <action selector="RefreshButton:" destination="dYG-9J-xst" id="AYT-wu-21P"/>
                             </connections>
@@ -120,6 +120,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="CountriesTableView" destination="3pg-lY-dVC" id="O5G-uf-EsW"/>
+                        <outlet property="RefreshButtonOutlet" destination="5xH-Z4-d0T" id="pze-YN-7mK"/>
                         <outlet property="SearchBarView" destination="Xu6-Iz-H85" id="tBt-fR-Qxr"/>
                     </connections>
                 </viewController>
@@ -130,7 +131,7 @@
         <!--Country View Controller-->
         <scene sceneID="W11-cz-hH9">
             <objects>
-                <viewController id="gYR-Qz-dQ1" customClass="CountryViewController" customModule="CountryListOnepointTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="gYR-Qz-dQ1" customClass="CountryViewController" customModule="CountryListOnepointTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="X60-ZB-ovX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -156,27 +157,44 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currencies" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ii0-tp-sLp">
                                 <rect key="frame" x="10" y="346" width="168" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LuT-Vs-5s3">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LuT-Vs-5s3">
                                 <rect key="frame" x="0.0" y="377" width="188" height="290"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" id="qFH-S4-p0m">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="contentCell" id="qFH-S4-p0m" customClass="ListTableViewCell" customModule="CountryListOnepointTest" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="188" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qFH-S4-p0m" id="ixb-ZY-GkX">
                                             <rect key="frame" x="0.0" y="0.0" width="188" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wdo-nr-bBY">
+                                                    <rect key="frame" x="73" y="11" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Wdo-nr-bBY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ixb-ZY-GkX" secondAttribute="leadingMargin" constant="10" id="Pgm-Tg-oDI"/>
+                                                <constraint firstItem="Wdo-nr-bBY" firstAttribute="centerX" secondItem="ixb-ZY-GkX" secondAttribute="centerX" id="VkS-kd-TVq"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Wdo-nr-bBY" secondAttribute="trailing" constant="10" id="YNF-em-ieg"/>
+                                                <constraint firstItem="Wdo-nr-bBY" firstAttribute="centerY" secondItem="ixb-ZY-GkX" secondAttribute="centerY" id="amy-35-1XS"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="ContentListLabel" destination="Wdo-nr-bBY" id="i1E-aW-Uss"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Borders" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bhd-OM-McC">
                                 <rect key="frame" x="196.5" y="346" width="168.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -184,13 +202,31 @@
                                 <rect key="frame" x="187" y="377" width="187.5" height="290"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameCell" id="7GF-hq-m6n">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="contentCell" id="7GF-hq-m6n" customClass="ListTableViewCell" customModule="CountryListOnepointTest" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="187.5" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7GF-hq-m6n" id="Aom-aI-KmT">
                                             <rect key="frame" x="0.0" y="0.0" width="187.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aoN-2v-ZOY">
+                                                    <rect key="frame" x="73" y="12" width="42" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="aoN-2v-ZOY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Aom-aI-KmT" secondAttribute="leadingMargin" constant="10" id="0e7-af-Ifk"/>
+                                                <constraint firstItem="aoN-2v-ZOY" firstAttribute="centerY" secondItem="Aom-aI-KmT" secondAttribute="centerY" id="CAn-iq-rh3"/>
+                                                <constraint firstItem="aoN-2v-ZOY" firstAttribute="centerX" secondItem="Aom-aI-KmT" secondAttribute="centerX" id="CRT-ku-LaQ"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="aoN-2v-ZOY" secondAttribute="trailing" constant="10" id="nLh-WS-s8r"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="ContentListLabel" destination="aoN-2v-ZOY" id="Zv5-sH-lQp"/>
+                                            <segue destination="gYR-Qz-dQ1" kind="show" identifier="segueToCountry" id="3Ev-J8-jZZ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -220,17 +256,23 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eAC-dI-dKU"/>
                     </view>
-                    <navigationItem key="navigationItem" id="g3P-fi-Qew"/>
+                    <navigationItem key="navigationItem" id="g3P-fi-Qew">
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="8Sb-xE-Qu8">
+                            <connections>
+                                <segue destination="gQG-eF-5mq" kind="unwind" unwindAction="backFromCountryWithUnwindSegue:" id="Kzk-4N-WNv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="BordersTableView" destination="c0x-vJ-hNB" id="9ki-yY-UN6"/>
                         <outlet property="CapitalLabel" destination="u0c-tT-xty" id="sl3-LO-mke"/>
                         <outlet property="CurrenciesTableView" destination="LuT-Vs-5s3" id="YQe-eD-3UA"/>
                         <outlet property="FlagImageView" destination="ru9-IM-CUl" id="Pok-bz-KpC"/>
                         <outlet property="InhabitantsLabel" destination="6Ua-B7-hqm" id="F5k-KX-IKo"/>
-                        <outlet property="view" destination="X60-ZB-ovX" id="piE-iH-Mxd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c6I-4j-qhQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="gQG-eF-5mq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1015.2" y="-354.87256371814095"/>
         </scene>

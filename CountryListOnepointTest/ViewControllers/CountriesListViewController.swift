@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 
+var flagDictionary: Dictionary<String, UIImage?> = Dictionary()
+
 class CountriesListViewController: UIViewController {
     var listCountries: [Country]?
     
@@ -17,10 +19,14 @@ class CountriesListViewController: UIViewController {
     @IBOutlet weak var CountriesTableView: UITableView!
     
     @IBAction func RefreshButton(_ sender: UIBarButtonItem) {
+        sender.isEnabled = false
+        getCountries()
     }
     
+    @IBOutlet weak var RefreshButtonOutlet: UIBarButtonItem!
+    
     private let searchController = UISearchController(searchResultsController: nil)
-    private let tableViewManager = CountriesTableViewManager()
+    private let tableViewManager = CountriesListTableViewManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,16 +38,25 @@ class CountriesListViewController: UIViewController {
         self.tableViewManager.tableView = self.CountriesTableView
         self.CountriesTableView.dataSource = self.tableViewManager
         self.CountriesTableView.delegate = self.tableViewManager
-        ApiManager.getCountriesFromApi() { (_ countries: [Country]) in
-            let sortedCountries = countries.sorted(by: {(country1, country2) in
-                    return (country1.name < country2.name)
-                })
-            self.listCountries = sortedCountries
-            self.tableViewManager.listCountries = sortedCountries
-            self.CountriesTableView.reloadData()
-        }
+        getCountries()
     }
 
+    func getCountries() {
+        ApiManager.getCountriesFromApi() { (_ countries: [Country]?) in
+            if countries != nil {
+                let sortedCountries = countries?.sorted {(country1, country2) in
+                    return (country1.name < country2.name)
+                }
+                self.listCountries = sortedCountries
+                self.tableViewManager.listCountries = sortedCountries!
+                self.CountriesTableView.reloadData()
+            }
+            else {
+                self.alert(title: "Error", message: "We had difficulties to download the countries, please retry")
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -49,19 +64,26 @@ class CountriesListViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToCountry" {
-            
-            if let cell = sender as? CountriesTableViewCell,
+            if let cell = sender as? CountriesListTableViewCell,
                 let destination = segue.destination as? CountryViewController {
-                let country = self.listCountries?.first(where: {(country) in
+                let country = self.listCountries?.first {(country) in
                     return (country.name == cell.CountryNameLabel.text)
-                })
+                }
                 destination.navigationItem.title = cell.CountryNameLabel.text
                 destination.listCountries = self.listCountries
                 destination.currentCountry = country
-                destination.flagImage = cell.FlagImageView.image
                 self.searchController.isActive = false
             }
         }
     }
+    
+    @IBAction func backFromCountry(unwindSegue: UIStoryboardSegue) {}
+    
+    func alert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
+        self.RefreshButtonOutlet.isEnabled = true
+    }
 }
-
