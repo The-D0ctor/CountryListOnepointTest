@@ -14,7 +14,6 @@ class ApiManager {
         Alamofire.request("https://restcountries.eu/rest/v2/all").responseDecodable { (response: DataResponse<[Country]>) in
             switch response.result {
             case .success(let countries):
-                print(countries)
                 completionHandler(countries)
             case .failure(let error):
                 print(error)

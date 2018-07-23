@@ -29,11 +29,10 @@ class CountriesListTableViewManager: NSObject, UITableViewDataSource, UITableVie
         let country: Country = filteredCountries == nil ? listCountries[indexPath.row] : filteredCountries![indexPath.row]
         cell.CountryNameLabel.text = country.name
         cell.CountryCapitalLabel.text = country.capital
-        print(country.name)
         if let image = flagDictionary[country.name] {
             cell.FlagImageView.image = image
         }
-        else if country.name != "Saint Helena, Ascension and Tristan da Cunha" {
+        else if country.alpha3Code != "SHN" {
             ApiManager.getFlag(flagUrl: country.flag) {(flagData) in
                 let flagImage = SVGKImage(data: flagData)
                 cell.FlagImageView.image = flagImage?.uiImage
@@ -58,8 +57,30 @@ class CountriesListTableViewManager: NSObject, UITableViewDataSource, UITableVie
         }
         else {
             filteredCountries = listCountries.filter {(country: Country) in
-                return (country.name.lowercased().starts(with: searchText!.lowercased()) ||
-                    country.capital.lowercased().starts(with: searchText!.lowercased()))
+                let nameWords = country.name.split { (character) in
+                    let testBool = character == " " || character == ","
+                    let testBool2 = character == "(" || character == ")"
+                    let testBool3 = character == "'" || character == "-" || character == "."
+                    return testBool || testBool2 || testBool3
+                }
+                for word in nameWords {
+                    if word.lowercased().starts(with: searchText!.lowercased()) {
+                        return true
+                    }
+                }
+                
+                let capitalWords = country.capital.split { (character) in
+                    let testBool = character == " " || character == ","
+                    let testBool2 = character == "(" || character == ")"
+                    let testBool3 = character == "'" || character == "-" || character == "."
+                    return testBool || testBool2 || testBool3
+                }
+                for word in capitalWords {
+                    if word.lowercased().starts(with: searchText!.lowercased()) {
+                        return true
+                    }
+                }
+                return false
             }
         }
         self.tableView?.reloadData()

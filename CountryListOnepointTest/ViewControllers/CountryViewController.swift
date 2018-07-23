@@ -37,7 +37,7 @@ class CountryViewController: UIViewController {
         if let image = flagDictionary[currentCountry!.name] {
             self.FlagImageView.image = image
         }
-        else if currentCountry!.name != "Saint Helena, Ascension and Tristan da Cunha" {
+        else if currentCountry!.alpha3Code != "SHN" {
             ApiManager.getFlag(flagUrl: currentCountry!.flag) {(flagData) in
                 let flagImage = SVGKImage(data: flagData)
                 self.FlagImageView.image = flagImage?.uiImage
@@ -57,12 +57,10 @@ class CountryViewController: UIViewController {
             }
             return nil
         }
-        print(currencies!)
         self.bordersCountries = self.currentCountry?.borders.compactMap { (borderCode) in
             return listCountries?.first {(country) in
                 return (country.alpha3Code == borderCode)
             }}
-        print(bordersCountries!)
         self.CapitalLabel.text = "Capital: \(currentCountry!.capital)"
         self.InhabitantsLabel.text = "Population: \(currentCountry!.population) inhabitants"
         self.currenciesTableViewManager.contentList = self.currencies
